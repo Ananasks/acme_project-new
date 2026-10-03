@@ -1,7 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
-from .models import Birthday, Congratulation
+from .models import Birthday
 
 
 BEATLES = {
@@ -17,16 +16,15 @@ class BirthdayForm(forms.ModelForm):
     class Meta:
         model = Birthday
         fields = (
-            'first_name',
-            'last_name',
-            'birthday',
-            'image',
-            'tags',
+            "first_name",
+            "last_name",
+            "birthday",
+            "image",
         )
         widgets = {
-            'birthday': forms.DateInput(
-                format='%Y-%m-%d',
-                attrs={'type': 'date'},
+            "birthday": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={"type": "date"},
             ),
         }
 
@@ -50,10 +48,3 @@ class BirthdayForm(forms.ModelForm):
             )
 
         return cleaned_data
-
-
-class CongratulationForm(forms.ModelForm):
-
-    class Meta:
-        model = Congratulation
-        fields = ('text',)

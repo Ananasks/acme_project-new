@@ -60,6 +60,9 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+*.sqlite3.bak
+acme_project/media/
+sent_emails/
 
 # Flask stuff:
 instance/

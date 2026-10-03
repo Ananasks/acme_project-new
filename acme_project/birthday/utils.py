@@ -1,33 +1,24 @@
 from datetime import date
 
 
-def calculate_birthday_countdown(birthday):
-    """
-    Возвращает количество дней до следующего дня рождения.
-
-    Если день рождения сегодня, то возвращает 0.
-    """
+def calculate_birthday_countdown(birthday: date) -> int:
+    """Вернуть количество дней до ближайшего дня рождения."""
     today = date.today()
-    this_year_birthday = get_birthday_for_year(birthday, today.year)
+    next_birthday = get_birthday_for_year(birthday, today.year)
 
-    if this_year_birthday < today:
+    if next_birthday < today:
         next_birthday = get_birthday_for_year(
             birthday,
             today.year + 1,
         )
-    else:
-        next_birthday = this_year_birthday
 
     return (next_birthday - today).days
 
 
-def get_birthday_for_year(birthday, year):
-    """
-    Возвращает дату дня рождения для указанного года.
-
-    День рождения 29 февраля в невисокосном году отмечается 1 марта.
-    """
+def get_birthday_for_year(birthday: date, year: int) -> date:
+    """Вернуть дату дня рождения в указанном году."""
     try:
         return birthday.replace(year=year)
     except ValueError:
+        # 29 февраля в невисокосном году считаем 1 марта
         return date(year=year, month=3, day=1)

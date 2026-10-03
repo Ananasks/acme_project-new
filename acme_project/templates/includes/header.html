@@ -2,19 +2,59 @@
   <nav class="navbar shadow-sm">
     <div class="container">
       {% with request.resolver_match.view_name as view_name %}
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills align-items-center gap-1">
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:homepage' %} active {% endif %}"
-              href="{% url 'pages:homepage' %}">
+            <a
+              class="nav-link{% if view_name == 'pages:homepage' %} active{% endif %}"
+              href="{% url 'pages:homepage' %}"
+            >
               Главная
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'birthday:create' %} active {% endif %}"
-              href="{% url 'birthday:create' %}">
-              Калькулятор дней рождения
+            <a
+              class="nav-link{% if view_name == 'birthday:list' %} active{% endif %}"
+              href="{% url 'birthday:list' %}"
+            >
+              Список дней рождения
             </a>
           </li>
+
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                class="nav-link{% if view_name == 'birthday:create' %} active{% endif %}"
+                href="{% url 'birthday:create' %}"
+              >
+                Калькулятор дней рождения
+              </a>
+            </li>
+            <li class="nav-item">
+              <span class="navbar-text">
+                Пользователь: <b>{{ user.username }}</b>
+              </span>
+            </li>
+            <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button
+                  class="nav-link border-0 bg-transparent"
+                  type="submit"
+                >
+                  Выйти
+                </button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link{% if view_name == 'login' %} active{% endif %}"
+                href="{% url 'login' %}"
+              >
+                Войти
+              </a>
+            </li>
+          {% endif %}
         </ul>
       {% endwith %}
     </div>

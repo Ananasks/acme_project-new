@@ -2,6 +2,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Этот ключ подходит только для локальной учебной разработки.
 SECRET_KEY = 'django-insecure-acme-project-development-key'
 
@@ -17,8 +20,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'birthday.apps.BirthdayConfig',
+    'django_bootstrap5',
     'pages.apps.PagesConfig',
+    'users.apps.UsersConfig',
 ]
+
+AUTH_USER_MODEL = 'users.MyUser'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'pages:homepage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,3 +98,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+DEFAULT_FROM_EMAIL = 'noreply@acme.local'

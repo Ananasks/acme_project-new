@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Список дней рождения</h1>
-
   {% for birthday in page_obj %}
     <div class="row">
-      <div class="col-12 col-sm-3 col-lg-2">
+      <div class="col-2">
         {% if birthday.image %}
           <img
             class="img-fluid rounded"
@@ -15,7 +13,7 @@
         {% endif %}
       </div>
 
-      <div class="col-12 col-sm-9 col-lg-10">
+      <div class="col-10">
         <div>
           {{ birthday.first_name }}
           {{ birthday.last_name }} —
@@ -24,18 +22,6 @@
             Сколько до дня рождения?
           </a>
         </div>
-
-        {% with all_tags=birthday.tags.all %}
-          {% if all_tags %}
-            <p class="mb-1">
-              {{ all_tags|join:", "|lower|capfirst }}
-              {% if birthday.author %}
-                пользователя {{ birthday.author.username }}
-              {% endif %}
-            </p>
-          {% endif %}
-        {% endwith %}
-
         {% if birthday.author == user %}
           <div>
             <a href="{% url 'birthday:edit' birthday.pk %}">
@@ -58,4 +44,4 @@
   {% endfor %}
 
   {% include "includes/paginator.html" %}
-{% endblock content %}
+{% endblock %}
